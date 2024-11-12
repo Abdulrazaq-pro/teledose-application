@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+---
 
-## Getting Started
+# Teledose
 
-First, run the development server:
+## Overview
+Teledose is a web application that provides users the ability to communicate with a medical expert interfaced via AI to provide solutions to medical issues they might be facing,it allows them to input their symtoms or whatever issues they maybe facing and provides remedies to them.It also provides an interface to chat with our AI medical expert to place any health concerns they maybe facing.
+
+## Table of Contents
+1. [Project Setup](#project-setup)
+2. [Technology Stack](#technology-stack)
+3. [Approach](#approach)
+4. [Code Architecture](#code-architecture)
+5. [Features](#features)
+6. [Deployment](#deployment)
+## Project Setup
+To get started with the project locally, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/Abdulrazaq-pro/teledose-application.git
+cd teledose-application
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Technology Stack
+- **Frontend**: Nextjs,javascript, Vite
+- **Backend**: Firebase (Authentication, Firestore),Python(AI architecture)
+- **Styling**: CSS Modules
+- **Deployment**: Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Approach
+### Authentication and Authorization
+The project employs Firebase Authentication to manage user login and registration. The authentication state is handled using `localStorage` to store the access token, which is then used to guard protected routes, ensuring only authenticated users can access specific pages like the medical dashboard.
 
-## Learn More
+### State Management
+State management is handled primarily through React’s built-in `useState` and `useEffect` hooks. The application’s state is kept minimal and is managed at the component level where possible, reducing complexity and improving maintainability.
 
-To learn more about Next.js, take a look at the following resources:
+### Routing
+Nextjs App Router is used to handle the navigation between different pages. The routing system ensures that users are redirected appropriately based on their authentication status, using conditional logic within the route definitions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Error Handling
+The application includes basic error handling for authentication and data fetching processes. Errors are displayed to users through inline messages, ensuring clarity and transparency when issues arise.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Code Architecture
+### Directory Structure
+The project is organized into a modular directory structure, with components, pages, and utility functions neatly separated:
 
-## Deploy on Vercel
+```
+teledose-application/
+│
+├── public/           # Static assets
+├── src/
+│   ├── Components/   # reusable components
+│   ├── App/         # Main page components (Login, Signup)
+│   ├── lib/        # Utility functions (e.g., validation, formatting)
+        ├── firebaseConfig.js    # Firebase service configurations
+        ├── utils.js    # api connections, helper functions configurations
+        
+│
+└── package.json      # Project dependencies and scripts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Key Components
+- **Navbar**: Provides navigation links and dynamically updates based on the user’s authentication state.
+- **Login**: Handles user login with form validation and error feedback.
+- **Signup**: Manages new user registration.
+- **Dashboard**: The main dashboard component where users interact with the app.
+- **chat bot**: For general chat with the AI medical expert.
+- **Symtom Checker**: For geting quick diagnosis for symtoms and remedies that might need to be taken.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Firebase Integration
+The Firebase configuration is set up in a dedicated service file (`firebaseConfig.js`), which initializes Firebase services such as Firestore and Authentication. The Firebase SDK is used to interact with these services, ensuring secure and reliable data handling.
+
+### Protected Routes
+The application employs a custom route protection mechanism using conditional rendering. Routes are conditionally rendered based on the presence of a valid authentication token in `localStorage`, ensuring that users must be logged in to access certain pages.
+
+## Features
+- User Authentication (Login/Signup)
+- Symtom checke and telemedicine chatbot
+- Responsive Design
+
+## Deployment
+- The application is deployed on Vercel, which provides continuous deployment from the GitHub repository. Any changes pushed to the main branch are automatically deployed.
+---
